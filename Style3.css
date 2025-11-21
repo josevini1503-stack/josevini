@@ -1,0 +1,161 @@
+/* ========================================
+   ESTILO FEMENINO - ROSA & MORADO (ENLACES MÁS POTENTES)
+   ======================================== */
+
+:root {
+  --rosa-suave: #FFC1E3;
+  --rosa-medio: #FF99CC;
+  --rosa-fuerte: #FF6FAB;
+  --morado-claro: #E0C3FC;
+  --morado-medio: #C59EFF;
+  --morado-fuerte: #9D4EDD;
+  --lila-pastel: #D8BFD8;
+  --dorado-suave: #F4D03F;
+  --blanco-perla: #FDFDFD;
+  --texto-oscuro: #5D3A6E;
+  --sombra-suave: rgba(157, 78, 221, 0.15);
+  --sombra-rosa: rgba(255, 105, 180, 0.25);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, var(--rosa-suave) 0%, var(--morado-claro) 100%);
+  color: var(--texto-oscuro);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.contenedor {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 40px 30px;
+  background: var(--blanco-perla);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px var(--sombra-suave), 0 10px 20px var(--sombra-rosa);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.contenedor::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: repeating-conic-gradient(from 30deg, transparent 0%, var(--rosa-suave) 5%, transparent 10%);
+  opacity: 0.1;
+  animation: girar 30s linear infinite;
+}
+
+@keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+h1, h2, h3 {
+  font-weight: 700;
+  margin-bottom: 15px;
+  background: linear-gradient(90deg, var(--rosa-fuerte), var(--morado-fuerte));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h1 { font-size: 2.8rem; }
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.8rem; }
+
+p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #6B4E71;
+}
+
+/* ================== ENLACES AHORA SÚPER VISIBLES ================== */
+a {
+  color: var(--morado-fuerte) !important;
+  font-weight: 700 !important;
+  text-decoration: none;
+  position: relative;
+  padding: 2px 4px;
+  border-radius: 6px;
+  transition: all 0.35s ease;
+}
+
+/* Fondo sutil + subrayado gordo y brillante */
+a::before {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  height: 7px;
+  background: linear-gradient(90deg, var(--rosa-fuerte), var(--morado-medio));
+  border-radius: 4px;
+  opacity: 0.35;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+  z-index: -1;
+}
+
+a:hover::before {
+  transform: scaleX(1);
+}
+
+/* Texto que se ilumina y sube */
+a:hover {
+  color: white !important;
+  transform: translateY(-3px);
+  text-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
+}
+
+/* Botones (los dejamos como estaban, perfectos) */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  margin: 10px;
+  background: linear-gradient(45deg, var(--rosa-fuerte), var(--morado-medio));
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  box-shadow: 0 8px 20px var(--sombra-rosa);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px var(--sombra-rosa);
+}
+
+/* Los botones NO llevan el efecto de enlace normal */
+.btn::before, .btn::after { display: none !important; }
+
+/* Tarjetas internas */
+.tarjeta {
+  background: white;
+  padding: 25px;
+  margin: 20px 0;
+  border-radius: 16px;
+  border: 2px solid var(--lila-pastel);
+  box-shadow: 0 8px 25px var(--sombra-suave);
+}
+
+.corazon {
+  color: var(--rosa-fuerte);
+  font-size: 1.5rem;
+  animation: latido 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes latido {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@media (max-width: 600px) {
+  .contenedor { margin: 20px; padding: 30px 20px; }
+  h1 { font-size: 2.3rem; }
+}
