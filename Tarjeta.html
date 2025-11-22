@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡Felices 17!</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      display: flex; justify-content: center; align-items: center;
+      font-family: 'Georgia', serif;
+      overflow: hidden;
+    }
+    .scene {
+      perspective: 1000px;
+    }
+    .card {
+      width: 360px;
+      height: 520px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      cursor: pointer;
+    }
+    .card.flipped { transform: rotateY(180deg); }
+
+    .front, .back {
+      position: absolute;
+      width: 100%; height: 100%;
+      backface-visibility: hidden;
+      border-radius: 25px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      padding: 40px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .front {
+      background: linear-gradient(45deg, #ff80ab, #ff4081);
+      color: white;
+    }
+    .back {
+      background: #fffde7;
+      color: #5d4037;
+      transform: rotateY(180deg);
+    }
+
+    /* Frente (te gusta tal cual) */
+    .heart { font-size: 5rem; animation: latido 1.6s infinite; }
+    @keyframes latido { 0%,100% {transform:scale(1)} 50% {transform:scale(1.2)} }
+    h1 { font-size: 3.2rem; margin: 20px 0; font-weight: bold; }
+
+    /* Reverso */
+    .sorpresa {
+      font-size: 4.8rem;
+      font-weight: bold;
+      color: #ec407a;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: boom 1.4s 0.6s forwards;
+    }
+    @keyframes boom {
+      0%   { opacity:0; transform:scale(0.3) rotate(-30deg); }
+      70%  { transform:scale(1.1); }
+      100% { opacity:1; transform:scale(1); }
+    }
+
+    .mensaje {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      max-width: 320px;
+      opacity: 0;
+      animation: fade 1s 2s forwards;
+    }
+    @keyframes fade { to { opacity:1; } }
+
+    /* Confeti súper ligero */
+    .confeti {
+      position: fixed;
+      width: 10px; height: 10px;
+      background: #f00;
+      pointer-events: none;
+      animation: caer linear forwards;
+    }
+    @keyframes caer {
+      to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <audio src="wwd.mp3juice.blog - Vicente Fernández - Hermoso Cariño (Audio) (320 KBps).mp3" autoplay></audio>
+  <div class="scene">
+    <div class="card" id="tarjeta">
+      <!-- Frente -->
+      <div class="front">
+        <div class="heart">🎂</div>
+        <h1>¡Felices 17 mi amor lindo!</h1>
+        <p style="font-size:1.3rem;">Toca la tarjeta...</p>
+      </div>
+
+      <!-- Reverso -->
+      <div class="back">
+        <div class="sorpresa">¡SORPRESA!</div>
+
+        <div class="mensaje">
+            Feliz cumpleaños mi amor lindo, espero que disfrutes 
+            de este día tan especial, espero que te la pases bien 
+            con tu familia que son esas personitas que amas y quieres 
+            muchisimo, espero que estos <em>17 años</em> que cumples hoy
+            no sean los unicos, te deseo una larga vida y llena de bendiciones,
+            siempre Diosito, te amo, te deseo lo mejor para tu día especial.<br>
+            <strong><em>Te amo tres millones amor.</em></strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tarjeta = document.getElementById('tarjeta');
+    let girada = false;
+
+    tarjeta.addEventListener('click', () => {
+      if (girada) return;
+      girada = true;
+      tarjeta.classList.add('flipped');
+
+      // Confeti ligero (solo 35 piezas, se borran solos)
+      setTimeout(lanzarConfeti, 1800);
+    });
+
+    // También funciona con toque en celular
+    tarjeta.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      if (!girada) tarjeta.click();
+    });
+
+    function lanzarConfeti() {
+      const colores = ['#ff4081','#ffd54f','#69f0ae','#84ffff','#ff8a80'];
+      for(let i=0; i<35; i++){
+        const c = document.createElement('div');
+        c.className = 'confeti';
+        c.style.left = Math.random()*100 + 'vw';
+        c.style.background = colores[Math.floor(Math.random()*colores.length)];
+        c.style.animationDuration = (Math.random()*2 + 2)+'s';
+        c.style.animationDelay = Math.random()*0.6+'s';
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 5000);
+      }
+    }
+  </script>
+</body>
+</html>
